@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBot - Smart Farming Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .hero { background: #28a745; color: white; padding: 40px 0; margin-bottom: 30px; }
+        .card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<div class="hero text-center">
+    <h1>🌱 AgriBot</h1>
+    <p>Intelligent Crop Recommendation & Disease Detection</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card p-4">
+                <h3>Crop Recommendation</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col"><input type="number" step="any" name="n" class="form-control" placeholder="Nitrogen (N)" required></div>
+                        <div class="col"><input type="number" step="any" name="p" class="form-control" placeholder="Phosphorus (P)" required></div>
+                        <div class="col"><input type="number" step="any" name="k" class="form-control" placeholder="Potassium (K)" required></div>
+                    </div>
+                    <input type="number" step="any" name="temp" class="form-control mb-3" placeholder="Temperature (°C)" required>
+                    <input type="number" step="any" name="hum" class="form-control mb-3" placeholder="Humidity (%)" required>
+                    <input type="number" step="any" name="ph" class="form-control mb-3" placeholder="Soil pH" required>
+                    <input type="number" step="any" name="rain" class="form-control mb-3" placeholder="Rainfall (mm)" required>
+                    <button type="submit" class="btn btn-success w-100">Predict Best Crop</button>
+                </form>
+                {% if crop_result %}
+                <div class="alert alert-info mt-3">Recommended Crop: <strong>{{ crop_result }}</strong></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h3>Disease Detection</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Upload a clear photo of the leaf:</p>
+                    <input type="file" name="image" class="form-control mb-3" required>
+                    <button type="submit" class="btn btn-primary w-100">Check for Disease</button>
+                </form>
+                {% if disease_result %}
+                <div class="alert alert-warning mt-3">Diagnosis: <strong>{{ disease_result }}</strong></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

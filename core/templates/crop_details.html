@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User - Crop Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { background: linear-gradient(135deg, #004e92, #000428); color: white; min-height: 100vh; }
+        .sidebar { width: 250px; height: 100vh; position: fixed; background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
+        .nav-link { color: #ffffffb3; padding: 12px 25px; }
+        .nav-link.active { background: rgba(255,255,255,0.1); color: white; border-left: 4px solid white; }
+        .main-content { margin-left: 250px; padding: 50px; }
+        
+        /* Grid and Card Styling matching image_5e721c.jpg */
+        .crop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .crop-card { height: 400px; border-radius: 20px; overflow: hidden; position: relative; border: none; }
+        .crop-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); }
+        .crop-info { position: absolute; top: 0; left: 0; padding: 25px; height: 100%; display: flex; flex-direction: column; }
+        .crop-name { font-size: 1.8rem; font-weight: bold; margin-bottom: 40px; }
+        .crop-desc { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.9); }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="p-4 small fw-bold text-uppercase opacity-50">Main Navigation</div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="{% url 'user_dashboard' %}"><i class="bi bi-grid me-2"></i> Dashboard</a>
+            <div class="p-4 small fw-bold text-uppercase opacity-50 mt-3">Account</div>
+            <a class="nav-link" href="{% url 'my_profile' %}"><i class="bi bi-person me-2"></i> My Profile</a>
+            <div class="p-4 small fw-bold text-uppercase opacity-50 mt-3">General</div>
+            <a class="nav-link active" href="{% url 'crop_details' %}"><i class="bi bi-credit-card-2-front me-2"></i> Crop Details</a>
+            <a class="nav-link mt-auto" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1 class="mb-5">Crop Details</h1>
+        
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500" alt="Rice">
+                    <div class="crop-info">
+                        <div class="crop-name">Rice</div>
+                        <div class="crop-desc">AS A CEREAL GRAIN, DOMESTICATED RICE IS THE MOST WIDELY CONSUMED STAPLE FOOD FOR OVER HALF OF THE WORLD'S HUMAN POPULATION.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=500" alt="Wheat">
+                    <div class="crop-info">
+                        <div class="crop-name">Wheat</div>
+                        <div class="crop-desc">WHEAT IS A GRASS WIDELY CULTIVATED FOR ITS SEED, A CEREAL GRAIN THAT IS A WORLDWIDE STAPLE FOOD.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=500" alt="Corn">
+                    <div class="crop-info">
+                        <div class="crop-name">Corn</div>
+                        <div class="crop-desc">CORN IS A TALL ANNUAL CEREAL GRASS (ZEA MAYS) THAT IS WIDELY GROWN FOR ITS LARGE ELONGATED EARS.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500" alt="Potato">
+                    <div class="crop-info">
+                        <div class="crop-name">Potato</div>
+                        <div class="crop-desc">THE POTATO IS A STARCHY TUBER OF THE PLANT SOLANUM TUBEROSUM AND IS A ROOT VEGETABLE NATIVE TO THE AMERICAS.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.pexels.com/photos/2889370/pexels-photo-2889370.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Rice">
+                    <div class="crop-info">
+                        <div class="crop-name">Cotton</div>
+                        <div class="crop-desc">COTTON IS A SOFT, FLUFFY STAPLE FIBER THAT GROWS IN A BOLL, OR PROTECTIVE CASE, AROUND THE SEEDS.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.pexels.com/photos/5945731/pexels-photo-5945731.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Papaya">
+                    <div class="crop-info">
+                        <div class="crop-name">Papaya</div>
+                        <div class="crop-desc">THE PAPAYA IS A SMALL, SPARSELY BRANCHED TREE, USUALLY WITH A SINGLE STEM GROWING FROM 5 TO 10 METERS TALL.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.unsplash.com/photo-1593113616828-6f22bca04804?auto=format&fit=crop&w=500" alt="Sugarcane">
+                    <div class="crop-info">
+                        <div class="crop-name">Sugarcane</div>
+                        <div class="crop-desc">SUGARCANE IS A TROPICAL, PERENNIAL GRASS THAT FORMS LATERAL SHOOTS AT THE BASE TO PRODUCE MULTIPLE STEMS.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="crop-card">
+                    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=500" alt="Tomato">
+                    <div class="crop-info">
+                        <div class="crop-name">Tomato</div>
+                        <div class="crop-desc">CULTIVATION COMPANION PLANTS. TOMATOES SERVE OR ARE SERVED BY A LARGE VARIETY OF PLANTS.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

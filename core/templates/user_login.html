@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AGRIBOT - User Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background-color: #121212; color: white; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; align-items: center; }
+        .login-card { max-width: 400px; margin: auto; background: #1e1e1e; padding: 40px; border: 1px solid #333; }
+        h2 { font-family: 'Oswald', sans-serif; letter-spacing: 4px; text-align: center; margin-bottom: 30px; }
+        .form-control { background: #2a2a2a; border: 1px solid #444; color: white; border-radius: 0; margin-bottom: 20px; padding: 12px; }
+        .form-control:focus { background: #333; color: white; border-color: #555; box-shadow: none; }
+        .btn-login { background: white; color: black; border: none; width: 100%; padding: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>USER LOGIN</h2>
+        {% if error %}
+            <div class="alert alert-danger py-2 small text-center">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="email" name="email" class="form-control" placeholder="EMAIL ADDRESS" required>
+            <input type="password" name="password" class="form-control" placeholder="PASSWORD" required>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+    </div>
+
+    <script>
+        {% if login_success %}
+        Swal.fire({
+            title: 'Success!',
+            text: 'Successfully Login',
+            icon: 'success',
+            confirmButtonColor: '#87CEEB'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{% url 'user_dashboard' %}";
+            }
+        });
+        {% endif %}
+    </script>
+</body>
+</html>

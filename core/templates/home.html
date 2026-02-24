@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRIBOT - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Navbar Styling */
+        .navbar { background-color: #1a1a1a !important; padding: 15px 0; }
+        .navbar-brand { font-family: 'Oswald', sans-serif; letter-spacing: 3px; font-weight: 500; }
+        .nav-link { color: #ffffff !important; font-size: 0.85rem; letter-spacing: 1px; margin-left: 15px; }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static "images/robot_bg.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .hero-content { width: 100%; }
+        .hero-welcome { background: black; display: inline-block; padding: 2px 10px; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 20px; }
+        .hero-title { font-family: 'Oswald', sans-serif; font-size: 4rem; letter-spacing: 10px; margin-bottom: 30px; }
+        .btn-learn { border: 1px solid white; color: white; border-radius: 0; padding: 10px 30px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
+        .btn-learn:hover { background: white; color: black; }
+
+        /* Features Section */
+        .features { padding: 80px 0; background: #fff; }
+        .feature-title { font-family: 'Oswald', sans-serif; letter-spacing: 3px; margin-bottom: 40px; }
+        .feature-item h6 { font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 1px; color: #333; margin-top: 20px;}
+        .feature-item p { font-size: 0.75rem; color: #777; line-height: 1.6; }
+
+        /* Footer Section */
+        footer { background-color: #111; color: #888; padding: 60px 0 20px 0; font-size: 0.85rem; }
+        footer h5 { color: white; font-family: 'Oswald', sans-serif; letter-spacing: 2px; font-size: 1rem; margin-bottom: 25px; }
+        .footer-line { border-top: 1px solid #333; margin-top: 40px; padding-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AGRIBOT</a>
+            <button class="navbar-expand-lg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav text-uppercase">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'user_login' %}">USERLOGIN</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_login' %}">ADMINLOGIN</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-welcome">HELLO & WELCOME</div>
+                <h1 class="hero-title">AGRIBOT.</h1>
+                <a href="/prediction" class="btn btn-learn">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features text-center">
+        <div class="container">
+            <h2 class="feature-title">OUR FEATURES</h2>
+            <p class="text-muted fst-italic mb-5">"A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart."</p>
+            
+            <div class="row text-start mt-5">
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>INDUSTRIAL FERTILIZERS</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>NITROGEN FERTILIZERS</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>NATURAL FERTILIZERS</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>INORGANIC FERTILIZERS</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>ORGANIC FERTILIZERS</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>PROBLEMS SOLVED</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>AGRIBOT</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+                <div class="col-md-6 mb-5 feature-item">
+                    <h6>POTASSIUM FERTILIZERS</h6>
+                    <p>A wonderful serenity has taken possession of my entire soul like these sweet mornings.</p>
+                </div>
+            </div>
+            
+            <hr class="mt-5" style="border-top: 1px solid #ddd; opacity: 1;">
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>ABOUT AGRIBOT</h5>
+                    <p>A one-stop solution for modern farmers to leverage Artificial Intelligence for better yield.</p>
+                    <p class="mb-1">Phone: +1 234 567 89 10</p>
+                    <p>Email: contact@agribot.com</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>RECENT COMMENTS</h5>
+                    <ul class="list-unstyled">
+                        <li>Maria on > <i>Good work</i></li>
+                        <li>John on > <i>Very useful for Farmers</i></li>
+                        <li>Andy on > <i>Many Features</i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-line d-flex justify-content-between">
+                <p>&copy; STUDENT NAME, ALL RIGHTS RESERVED</p>
+                <div>
+                    <i class="bi bi-facebook mx-2"></i>
+                    <i class="bi bi-twitter mx-2"></i>
+                    <i class="bi bi-instagram mx-2"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4" style="background-color: #f0f0f8; border-radius: 15px; max-width: 600px; margin: auto;">
+        <h2 class="text-center mb-4" style="font-family: serif;">Get informed advice on fertilizer based on soil</h2>
+        
+        <form action="{% url 'fertilizer_predict' %}" method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Nitrogen</label>
+                <input type="number" name="nitrogen" class="form-control" placeholder="20" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Phosphorous</label>
+                <input type="number" name="phosphorous" class="form-control" placeholder="30" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Potassium</label>
+                <input type="number" name="potassium" class="form-control" placeholder="10" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Crop you want to grow</label>
+                <select name="crop_type" class="form-select" required>
+                    <option value="" selected disabled>Select crop</option>
+                    <option value="rice">Rice</option>
+                    <option value="maize">Maize</option>
+                    <option value="chickpea">Chickpea</option>
+                    <option value="kidneybeans">Kidneybeans</option>
+                    <option value="pigeonpeas">Pigeonpeas</option>
+                    <option value="mothbeans">Mothbeans</option>
+                    <option value="mungbean">Mungbean</option>
+                    <option value="blackgram">Blackgram</option>
+                    <option value="lentil">Lentil</option>
+                    <option value="pomegranate">Pomegranate</option>
+                    <option value="banana">Banana</option>
+                    <option value="mango">Mango</option>
+                    <option value="grapes">Grapes</option>
+                    <option value="watermelon">Watermelon</option>
+                    <option value="muskmelon">Muskmelon</option>
+                    <option value="apple">Apple</option>
+                    <option value="orange">Orange</option>
+                    <option value="papaya">Papaya</option>
+                    <option value="coconut">Coconut</option>
+                    <option value="cotton">Cotton</option>
+                    <option value="jute">Jute</option>
+                    <option value="coffee">Coffee</option>
+                </select>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger text-center">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-info px-5 py-2 text-white fw-bold" style="background-color: #00bfff; border: none; border-radius: 10px;">Predict</button>
+            </div>
+        </form>
+    </div>
+</div>

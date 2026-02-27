@@ -24,7 +24,6 @@ from core import views
 urlpatterns = [
     path('admin_panel/', admin.site.urls), # Django's built-in admin
     path('', views.home, name='home'),
-    path('prediction/', views.index, name='index'),
     path('register/', views.register, name='register'),
     
     # YOUR CUSTOM ADMIN
@@ -50,6 +49,27 @@ urlpatterns = [
     path('user-changepassword/', views.change_password, name='change_password'),
 
     path('user-cropdetails/', views.crop_details, name='crop_details'),
+
+    path('user-fertilizer/', views.fertilizer_details, name='fertilizer_details'),
+
+    path('user-chatbot-btn/', views.chatbot_init, name='chatbot_init'),
+
+    path('user-chatbot-init-api/', views.initialize_model_api, name='initialize_model_api'),
+    path('user-chatbot-main/', views.chatbot_main, name='chatbot_main'),
+
+    # path('chatbot/', views.chatbot_page, name='chatbot_page'),
+
+    path('crop-recommend/', views.crop_recommendation, name='crop_recommendation'),
+    path('crop-predict/', views.crop_predict_result, name='crop_predict_result'),
+
+    path('disease-predict/', views.disease_prediction, name='disease_prediction'),
+
+    path('fertilizer/', views.fertilizer_recommendation, name='fertilizer_recommendation'),
+
+    path('fertilizer_predict/', views.fertilizer_recommendation, name='fertilizer_predict'),
+
+    path('chatbot/', views.chatbot_view, name='chatbot'),
+
 ]
 
 from django.conf import settings

@@ -26,7 +26,7 @@
                 <a class="nav-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}" href="{% url 'user_dashboard' %}">
                     <i class="bi bi-grid me-2"></i> Dashboard
                 </a>
-                <a class="nav-link" href="#"><i class="bi bi-chat-dots me-2"></i> Chatbot</a>
+                <a class="nav-link" href="{% url 'chatbot_init' %}"><i class="bi bi-chat-dots me-2"></i> Chatbot</a>
 
                 <div class="p-4 small fw-bold text-uppercase opacity-50 mt-3">Account</div>
                 <a class="nav-link {% if request.resolver_match.url_name == 'my_profile' %}active{% endif %}" href="{% url 'my_profile' %}">
@@ -41,7 +41,7 @@
 
                 <div class="p-4 small fw-bold text-uppercase opacity-50 mt-3">General</div>
                 <a class="nav-link" href="{% url 'crop_details' %}"><i class="bi bi-credit-card-2-front me-2"></i> Crop Details</a>
-                <a class="nav-link" href="#"><i class="bi bi-gift me-2"></i> Fertilizer Details</a>
+                <a class="nav-link" href="{% url 'fertilizer_details' %}"><i class="bi bi-gift me-2"></i> Fertilizer Details</a>
                 <a class="nav-link" href="#"><i class="bi bi-card-text me-2"></i> Feedback</a>
                 
                 <a class="nav-link mt-auto" href="{% url 'logout' %}">

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBot - Intelligent Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #f27a0d;
+            --secondary: #248a24;
+            --accent: #8b3dc7;
+            --foreground: #262626;
+            --muted-foreground: #737373;
+            --hero-bg: #f5f2ed;
+            --footer-bg: #272c33;
+            --topbar-bg: #f7f7f7;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--foreground);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* TopBar Styles */
+        .top-bar {
+            background-color: var(--topbar-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        /* Navbar Styles */
+        .navbar-brand { font-size: 1.875rem; font-weight: 700; }
+        .italic-primary { color: var(--primary); font-style: italic; }
+        .bold-secondary { color: var(--secondary); font-weight: 800; }
+        .nav-link { font-weight: 500; color: var(--foreground) !important; transition: color 0.2s; }
+        .nav-link:hover { color: var(--primary) !important; }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: var(--hero-bg);
+            padding: 4rem 0;
+            position: relative;
+        }
+        .hero-img {
+            width: 288px;
+            height: 224px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--footer-bg);
+            color: #bfbfbf;
+            padding-top: 4rem;
+            padding-bottom: 2rem;
+            margin-top: auto;
+        }
+        footer h2, footer h3 { color: white; }
+        .footer-link {
+            text-decoration: none;
+            color: #bfbfbf;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-link:hover { color: var(--primary); }
+
+        /* Chat Popup Styling */
+        #chat-button {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        #chat-button:hover { transform: scale(1.05); }
+
+        #chat-window {
+            position: fixed;
+            bottom: 6rem;
+            right: 1.5rem;
+            width: 320px;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+        .chat-header {
+            background: linear-gradient(to right, var(--accent), #b34dd2);
+            padding: 1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Internal Chat Box Logic Styles */
+        #chat-box {
+            height: 250px; 
+            background: white; 
+            overflow-y: auto; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+        .user-msg {
+            align-self: flex-end;
+            background-color: #f3e8ff;
+            color: #6b21a8;
+            padding: 8px 12px;
+            border-radius: 12px 12px 0 12px;
+            max-width: 85%;
+        }
+        .bot-msg {
+            align-self: flex-start;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 8px 12px;
+            border-radius: 12px 12px 12px 0;
+            max-width: 85%;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-4">
+                <span class="text-muted"><i data-lucide="map-pin" class="text-primary" style="width:14px"></i> 123 Street, State, India</span>
+                <a href="mailto:info@agribot.com" class="text-muted text-decoration-none"><i data-lucide="mail" class="text-primary" style="width:14px"></i> info@agribot.com</a>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted">Follow us:</span>
+                <i data-lucide="facebook" style="width:16px; cursor:pointer"></i>
+                <i data-lucide="twitter" style="width:16px; cursor:pointer"></i>
+                <i data-lucide="linkedin" style="width:16px; cursor:pointer"></i>
+                <i data-lucide="instagram" style="width:16px; cursor:pointer"></i>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md bg-white shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span class="italic-primary">Agri</span><span class="bold-secondary">Bot</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto gap-3">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button">Prediction</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#">Chatbot</a></li>
+                </ul>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="search" style="cursor:pointer"></i>
+                    <i data-lucide="user" style="cursor:pointer"></i>
+                    <i data-lucide="shopping-bag" style="cursor:pointer"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <div>
+                <h1 class="display-4 fw-bold mb-3">Intelligent Chatbot</h1>
+                <nav class="text-muted small">
+                    Home / Pages / <span class="text-dark">Intelligent Chatbot</span>
+                </nav>
+            </div>
+            <div class="mt-4 mt-md-0 d-none d-lg-block">
+                <img src="https://via.placeholder.com/288x224" alt="Agricultural Robot" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <div style="flex: 1; min-height: 20vh;" class="container py-5">
+        <h3>Welcome to the AgriBot Assistant</h3>
+        <p class="text-muted">Our AI-powered chatbot is here to help you with crop diseases, irrigation methods, and government schemes. Simply click the icon in the bottom right corner to start a conversation.</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <h2 class="mb-3"><span class="italic-primary">Agri</span><span class="bold-secondary">Bot</span></h2>
+                    <p class="small">An Intelligent Chatbot for Farmers with Crop and Disease Prediction</p>
+                    <div class="d-flex gap-2">
+                        <i data-lucide="twitter"></i>
+                        <i data-lucide="facebook"></i>
+                        <i data-lucide="youtube"></i>
+                        <i data-lucide="linkedin"></i>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="h5 mb-4">Address</h3>
+                    <p class="small"><i data-lucide="map-pin" class="text-primary me-2"></i> 123 Street, State, India</p>
+                    <p class="small"><i data-lucide="phone" class="text-primary me-2"></i> +91 9876543210</p>
+                    <p class="small"><i data-lucide="mail" class="text-primary me-2"></i> info@agribot.com</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="h5 mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#" class="footer-link small"><i data-lucide="chevron-right" style="width:14px"></i> About Us</a>
+                        <a href="#" class="footer-link small"><i data-lucide="chevron-right" style="width:14px"></i> Crop Prediction</a>
+                        <a href="#" class="footer-link small"><i data-lucide="chevron-right" style="width:14px"></i> Chatbot</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="chat-button" onclick="toggleChat()">
+        <i data-lucide="message-circle" id="chat-icon"></i>
+    </button>
+
+    <div id="chat-window">
+        <div class="chat-header">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
+            <div>
+                <h6 class="m-0">AgriBot Support</h6>
+                <p class="small m-0" style="font-size: 10px; opacity: 0.9;">Hi. How can I help you today?</p>
+            </div>
+        </div>
+        
+        <div id="chat-box">
+            <div class="bot-msg">Welcome to AgriBot! Ask me about crop diseases or irrigation.</div>
+        </div>
+        
+        <div class="p-3 d-flex gap-2" style="background: linear-gradient(to right, var(--accent), #b34dd2);">
+            <input type="text" id="user-input" class="form-control rounded-pill border-0 px-3" placeholder="Write a message...">
+            <button id="send-btn" class="btn text-white p-0"><i data-lucide="send"></i></button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Toggle Functionality for the Popup
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            const chatIcon = document.getElementById('chat-icon');
+            
+            if (chatWindow.style.display === 'block') {
+                chatWindow.style.display = 'none';
+                chatIcon.setAttribute('data-lucide', 'message-circle');
+            } else {
+                chatWindow.style.display = 'block';
+                chatIcon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons(); // Refresh icons after attribute change
+        }
+
+        // 2. Chat AJAX Logic to communicate with Django views.chatbot_view
+        $(document).ready(function() {
+            $('#send-btn').click(function() {
+                let userMsg = $('#user-input').val();
+                if (userMsg.trim() === '') return;
+
+                // Append User Message to UI
+                $('#chat-box').append('<div class="user-msg">' + userMsg + '</div>');
+                $('#user-input').val(''); // Clear input
+                
+                // Auto-scroll to bottom
+                $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+
+                // Send to Backend
+                $.ajax({
+                    url: '{% url "chatbot" %}', // Make sure name='chatbot' in urls.py
+                    type: 'POST',
+                    data: {
+                        'message': userMsg,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(data) {
+                        // Append Bot Response to UI
+                        $('#chat-box').append('<div class="bot-msg">' + data.response + '</div>');
+                        $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+                    },
+                    error: function() {
+                        $('#chat-box').append('<div class="bot-msg">Error: Could not connect to server.</div>');
+                    }
+                });
+            });
+
+            // Trigger click on Enter key
+            $('#user-input').keypress(function(e) {
+                if(e.which == 13) {
+                    $('#send-btn').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

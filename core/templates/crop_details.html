@@ -23,16 +23,35 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="p-4 small fw-bold text-uppercase opacity-50">Main Navigation</div>
         <nav class="nav flex-column">
-            <a class="nav-link" href="{% url 'user_dashboard' %}"><i class="bi bi-grid me-2"></i> Dashboard</a>
+            <div class="p-4 small fw-bold text-uppercase opacity-50">Main Navigation</div>
+            <a class="nav-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}" href="{% url 'user_dashboard' %}">
+                <i class="bi bi-grid me-2"></i> Dashboard
+            </a>
+            <a class="nav-link" href="{% url 'chatbot_init' %}"><i class="bi bi-chat-dots me-2"></i> Chatbot</a>
+
             <div class="p-4 small fw-bold text-uppercase opacity-50 mt-3">Account</div>
-            <a class="nav-link" href="{% url 'my_profile' %}"><i class="bi bi-person me-2"></i> My Profile</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'my_profile' %}active{% endif %}" href="{% url 'my_profile' %}">
+                <i class="bi bi-person me-2"></i> My Profile
+            </a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'edit_profile' %}active{% endif %}" href="{% url 'edit_profile' %}">
+                <i class="bi bi-pencil me-2"></i> Edit Profile
+            </a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'change_password' %}active{% endif %}" href="{% url 'change_password' %}">
+                <i class="bi bi-lock me-2"></i> Change Password
+            </a>
+
             <div class="p-4 small fw-bold text-uppercase opacity-50 mt-3">General</div>
-            <a class="nav-link active" href="{% url 'crop_details' %}"><i class="bi bi-credit-card-2-front me-2"></i> Crop Details</a>
-            <a class="nav-link mt-auto" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
+            <a class="nav-link" href="{% url 'crop_details' %}"><i class="bi bi-credit-card-2-front me-2"></i> Crop Details</a>
+            <a class="nav-link" href="{% url 'fertilizer_details' %}"><i class="bi bi-gift me-2"></i> Fertilizer Details</a>
+            <a class="nav-link" href="#"><i class="bi bi-card-text me-2"></i> Feedback</a>
+            
+            <a class="nav-link mt-auto" href="{% url 'logout' %}">
+                <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
         </nav>
     </div>
+    
 
     <div class="main-content">
         <h1 class="mb-5">Crop Details</h1>

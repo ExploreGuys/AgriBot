@@ -1,0 +1,34 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
+      "responses": ["Hello! I am AgriBot. How can I help you with your crops today?", "Good to see you! What agricultural advice do you need?"]
+    },
+    {
+      "tag": "rice_diseases",
+      "patterns": ["common diseases of rice crop", "rice disease", "problems in rice", "rice fungus"],
+      "responses": ["Sheath blight in rice is identified by water-soaked lesions on sheaths. It's caused by the fungus Rhizoctonia solani."]
+    },
+    {
+      "tag": "wheat_smut",
+      "patterns": ["preventing wheat smut", "how to stop wheat smut", "black grain in wheat", "wheat smut control"],
+      "responses": ["Smut in wheat is characterized by black masses on grain. Employing disease-free seeds and adopting proper crop management practices can help control it."]
+    },
+    {
+      "tag": "drip_irrigation",
+      "patterns": ["crop suitable for drip irrigation", "drip irrigation benefits", "best crops for drip"],
+      "responses": ["Drip irrigation is suitable for a variety of crops, including tomatoes, peppers, cucumbers, strawberries, and many others. It's especially beneficial for plants that require consistent moisture."]
+    },
+    {
+      "tag": "govt_policies",
+      "patterns": ["common govt policies for farmer", "government schemes", "PM Kisan", "subsidies"],
+      "responses": ["PM-Kisan Scheme, Pradhan Mantri Krishi Sinchai Yojana (PMKSY), etc. are important government policies for farmers."]
+    },
+    {
+      "tag": "rice_cultivation",
+      "patterns": ["steps for cultivating rice", "how to grow rice", "rice farming guide"],
+      "responses": ["Steps for cultivating rice include land preparation, seedbed establishment, seedling transplantation, and proper water management during the cropping period."]
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgriBot - Chat Support</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #fff; }
+        
+        /* Banner Section */
+        .chatbot-header { background: #f8f9fa; padding: 80px 0; border-bottom: 1px solid #eee; }
+        .chatbot-header h1 { font-size: 3.5rem; font-weight: 800; color: #333; }
+        .breadcrumb-text { color: #666; font-size: 1rem; }
+
+        /* Floating Chat Button */
+        .chat-launcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background-color: #34ad54;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 2000;
+            border: none;
+            font-size: 28px;
+            transition: transform 0.3s ease;
+        }
+        .chat-launcher:hover { transform: scale(1.1); }
+
+        /* Chat Window Widget */
+        .chat-popup {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 360px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none; /* Initial state hidden */
+            flex-direction: column;
+            z-index: 2000;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .chat-top { background: #8e44ad; color: white; padding: 20px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .bot-avatar { width: 35px; height: 35px; background: white; border-radius: 50%; }
+        
+        .chat-messages { flex: 1; padding: 20px; background: #fdfdfd; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg-bubble { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+        .bot-msg { background: #eee; color: #333; align-self: flex-start; }
+        
+        .chat-input-area { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; }
+        .send-btn { background: #8e44ad; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><span style="color:#ff6a00">Agri</span><span style="color:#34ad54">Bot</span></a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'user_dashboard' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Chatbot</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="chatbot-header">
+        <div class="container d-flex align-items-center justify-content-between">
+            <div>
+                <h1>Intelligent Chatbot</h1>
+                <p class="breadcrumb-text">Home / Pages / Intelligent Chatbot</p>
+            </div>
+            <img src="https://img.freepik.com/free-vector/cute-robot-holding-plant-cartoon-vector-icon-illustration_138676-2843.jpg" height="150">
+        </div>
+    </div>
+
+    <button class="chat-launcher" onclick="toggleChatWindow()">
+        <i class="bi bi-chat-dots-fill"></i>
+    </button>
+
+    <div class="chat-popup" id="chatWidget">
+        <div class="chat-top">
+            <div class="bot-avatar"></div>
+            <span>Chat support</span>
+        </div>
+        <div class="chat-messages" id="messageBox">
+            <div class="msg-bubble bot-msg">Hi! How can I help you?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userMsgInput" placeholder="Write a message...">
+            <button class="send-btn"><i class="bi bi-send-fill"></i></button>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white pt-5 pb-3 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="text-orange">AgriBot</h3>
+                <p>An intelligent chatbot for farmers with crop and disease prediction.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white-50 text-decoration-none">About Us</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Crop Prediction</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Contact</h5>
+                <p class="text-white-50">123 Street, State, India<br>info@agribot.com</p>
+            </div>
+        </div>
+        <hr class="bg-secondary">
+        <p class="text-center text-white-50 small">© AgriBot, All Rights Reserved.</p>
+    </div>
+</footer>
+
+    <script>
+        function toggleChatWindow() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = (widget.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        const sendBtn = document.querySelector('.send-btn');
+        const userInput = document.getElementById('userMsgInput');
+        const messageBox = document.getElementById('messageBox');
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            // Add User Message
+            appendMessage(text, 'user-msg');
+            userInput.value = '';
+
+            // Add "Thinking" delay to mimic NLP processing
+            setTimeout(() => {
+                const reply = getBotResponse(text);
+                appendMessage(reply, 'bot-msg');
+            }, 1000);
+        }
+
+        function appendMessage(text, className) {
+            const div = document.createElement('div');
+            div.className = `msg-bubble ${className}`;
+            // Ensure user messages have specific styling
+            if(className === 'user-msg') {
+                div.style.background = '#8e44ad';
+                div.style.color = 'white';
+                div.style.alignSelf = 'flex-end';
+            }
+            div.textContent = text;
+            messageBox.appendChild(div);
+            messageBox.scrollTop = messageBox.scrollHeight;
+        }
+
+        // Basic Logic for Responses
+        function getBotResponse(query) {
+            const q = query.toLowerCase();
+            if (q.includes("rice")) return "Rice common diseases include Blast and Brown Spot. Would you like prevention tips?";
+            if (q.includes("help")) return "I can help with crop suggestions, fertilizer guides, and disease prediction!";
+            return "I am analyzing your query about '" + query + "'. Please wait while I consult our agriculture database.";
+        }
+    </script>
+</body>
+</html>
